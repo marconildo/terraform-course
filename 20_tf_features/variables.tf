@@ -1,3 +1,7 @@
+#------------------------------------------------------
+# string, number, list, map
+#------------------------------------------------------
+
 variable "cost_center_id" {
   type    = number
   default = 3
@@ -22,6 +26,10 @@ variable "custom_tags" {
   }
 }
 
+#------------------------------------------------------
+# sensitive, validation, length, substr
+#------------------------------------------------------
+
 variable "rg_name" {
   type        = string
   description = "The name of the Azure Resource Group."
@@ -35,13 +43,17 @@ variable "rg_name" {
   }
 }
 
+#------------------------------------------------------
+# anytrue, for, contains
+#------------------------------------------------------
+
 variable "location" {
   type        = string
   description = "Location of resources"
   default     = "westeurope"
 
   validation {
-    condition     = (anytrue([for l in ["eastus", "westeurope"] : l == var.location])) 
+    condition = (anytrue([for l in ["eastus", "westeurope"] : l == var.location]))
     # condition   = contains(["eastus", "westeurope"], lower(var.location))
     error_message = "The region should be eastus or westeurope."
   }
